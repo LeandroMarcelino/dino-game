@@ -1,7 +1,9 @@
 const dino = document.querySelector('.dino');
 const background = document.querySelector('.background');
 let isJumping = false;
+let isGameOver = false;
 let position = 0;
+
 
 
 
@@ -44,6 +46,8 @@ function criarCactus() {
     const cactus = document.createElement('div');
     let cactusPosicao = 1000;
     let randomTime = Math.random() * 6000;
+	
+	if (isGameOver) return;
 
     cactus.classList.add('cactus');
     cactus.style.left = 1000 + 'px';
@@ -58,10 +62,12 @@ function criarCactus() {
         } else if (cactusPosicao > 0 && cactusPosicao < 60 && position < 60) {
             //gamer over
             clearInterval(leftInterval);
+			isGameOver = true;
             document.body.innerHTML = '<h1 class="game-over">Fim de jogo</h1>'
         } else {
             cactusPosicao -= 10;
             cactus.style.left = cactusPosicao + 'px';
+			
         }
     }, 20)
     setTimeout(criarCactus, randomTime);
